@@ -1,0 +1,28 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class Rotate : MonoBehaviour {
+
+	public Vector3 speed = new Vector3(0f, 0f, 0f);
+
+	public bool rollAroundParent = false;
+	// if roll around
+	Transform parentTransform; 
+	// Use this for initialization
+	void Start () {
+		if(rollAroundParent == true) {
+            if(transform.parent != null)
+			    parentTransform = transform.parent;
+		}
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		transform.Rotate(speed * Time.deltaTime);
+
+		if (rollAroundParent) {
+            if (transform.parent != null)
+			    transform.RotateAround(parentTransform.transform.position, speed, 30*Time.deltaTime); 
+		}
+	}
+}
